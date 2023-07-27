@@ -5,24 +5,19 @@ import {
   StyledDatas,
   StyledListBtn,
 } from './ContactListStyled';
-import { getContacts, getFilter } from 'redux/selectors';
-import { deleteContacts } from 'redux/contactsSlice';
+import { selectFilteredContacts } from 'redux/selectors';
+import { deleteContacts } from 'redux/operations';
 
 const ContactList = () => {
+  const filteredContacts = useSelector(selectFilteredContacts);
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
-  const filteredContacts = contacts.filter(({ name }) =>
-    name.toLowerCase().includes(filter)
-  );
-
   return (
     <StyledContactList>
-      {filteredContacts.map(({ id, number, name }) => {
+      {filteredContacts.map(({ id, phone, name }) => {
         return (
           <StyledContact key={id}>
             <StyledDatas>
-              {name}: {number}
+              {name}: {phone}
             </StyledDatas>
             <StyledListBtn
               type="button"

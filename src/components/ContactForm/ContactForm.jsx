@@ -8,22 +8,23 @@ import {
   StyledLabel,
   StyledSpan,
 } from './ContactFormStyled';
-import { addContacts } from 'redux/contactsSlice';
-import { getContacts } from 'redux/selectors';
+
+import { selectContacts } from 'redux/selectors';
+import { addContacts } from 'redux/operations';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
 
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const onNameChange = event => {
     setName(event.target.value);
   };
 
-  const onNumberChange = event => {
-    setNumber(event.target.value);
+  const onPhoneChange = event => {
+    setPhone(event.target.value);
   };
   const handleSubmit = event => {
     event.preventDefault();
@@ -32,14 +33,14 @@ export default function ContactForm() {
     ) {
       alert(`${name} is alredy in contacts`);
     } else {
-      dispatch(addContacts({ name, number }));
+      dispatch(addContacts({ name, phone }));
     }
     reset();
   };
 
   const reset = () => {
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   return (
@@ -61,10 +62,10 @@ export default function ContactForm() {
         <StyledLabel>
           <StyledSpan>Number</StyledSpan>
           <StyledInput
-            value={number}
-            onChange={onNumberChange}
+            value={phone}
+            onChange={onPhoneChange}
             type="tel"
-            name="number"
+            name="phone"
             placeholder="Your number..."
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"

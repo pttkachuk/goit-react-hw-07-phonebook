@@ -5,12 +5,12 @@ import {
   StyledSearchLabel,
   StyledSearchSpan,
 } from './SearchBarStyled';
-import { getFilter } from 'redux/selectors';
+import { selectFilter } from 'redux/selectors';
 import { setFilter } from 'redux/searchBarSlice';
 
 const SearchBar = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(getFilter);
+  const filter = useSelector(selectFilter);
   const handleChangeFilterInput = event => {
     dispatch(setFilter(event.target.value));
   };
